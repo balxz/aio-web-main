@@ -136,6 +136,7 @@
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/cheerio/1.0.0-rc.3/cheerio.min.js"></script>
 <script>
+    // Particles.js configuration
     particlesJS("particles", {
         particles: {
             number: {
@@ -238,8 +239,11 @@
         }
 
         async fetch(videoId) {
+            const proxyUrl = 'https://cors-anywhere.herokuapp.com/'; // Proxy CORS
+            const targetUrl = 'https://retatube.com/api/v1/aio/search';
+
             try {
-                const response = await axios.post(this.api.search, `vid=${videoId}`, { headers: this.headers() });
+                const response = await axios.post(proxyUrl + targetUrl, `vid=${videoId}`, { headers: this.headers() });
                 return this.parseHtml(response.data);
             } catch (error) {
                 console.error('Error fetching video:', error);
